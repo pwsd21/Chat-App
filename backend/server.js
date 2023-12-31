@@ -15,7 +15,7 @@ app.use(express.json()); // to accept JSON data
 app.get("/", (req, res) => res.send("API is running..."));
 
 app.use("/api/user", userRoutes); // Middleware
-app.usr("/api/chat", chatRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
