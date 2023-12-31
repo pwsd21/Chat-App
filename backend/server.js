@@ -3,6 +3,7 @@ const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const colors = require("colors");
 const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(express.json()); // to accept JSON data
 app.get("/", (req, res) => res.send("API is running..."));
 
 app.use("/api/user", userRoutes); // Middleware
+app.usr("/api/chat", chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
