@@ -19,7 +19,7 @@ import {
 import { Tooltip } from "@chakra-ui/tooltip";
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
-import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/toast";
@@ -31,6 +31,7 @@ import { Effect } from "react-notification-badge";
 import { getSender } from "../../config/ChatLogics";
 import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
+import { useNavigate } from "react-router-dom";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -142,7 +143,7 @@ function SideDrawer() {
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Talk-A-Tive
+          Chat App
         </Text>
         <div>
           <Menu>
