@@ -50,6 +50,7 @@ const server = app.listen(
   console.log(`Server running on PORT ${PORT}...`.yellow.bold)
 );
 
+// Socket.io instance attached to an existing HTTP server
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
@@ -58,20 +59,26 @@ const io = require("socket.io")(server, {
   },
 });
 
+// Listens for the "connection" event
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
+  // Listens for the "setup" event - sent when a user connects to the application
   socket.on("setup", (userData) => {
-    socket.join(userData._id);
+    socket.join(userData._id); // Joins a Socket.io room using the user's ID
     socket.emit("connected");
   });
 
+  // Listens for the "join chat" event - indicating that a user wants to join a specific chat room
   socket.on("join chat", (room) => {
-    socket.join(room);
+    socket.join(room); // Joins the specified chat room
     console.log("User Joined Room: " + room);
   });
+  // Listens for "typing" and "stop typing" events
+  // Broadcasts these events to all other users in the same room using socket.in(room).emit()
   socket.on("typing", (room) => socket.in(room).emit("typing"));
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
+  // Listens for the "new message" event - Broadcasts the received message to all other users in the same chat room
   socket.on("new message", (newMessageRecieved) => {
     var chat = newMessageRecieved.chat;
 
@@ -84,6 +91,7 @@ io.on("connection", (socket) => {
     });
   });
 
+  // Listens for the "disconnect" event - Leaves the Socket.io room corresponding to the user's ID using socket.leave(userData._id)
   socket.off("setup", () => {
     console.log("USER DISCONNECTED");
     socket.leave(userData._id);
