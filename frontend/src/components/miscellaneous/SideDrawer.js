@@ -32,6 +32,7 @@ import { getSender } from "../../config/ChatLogics";
 import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
 import { useNavigate } from "react-router-dom";
+import { useBreakpointValue } from "@chakra-ui/react";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -39,6 +40,7 @@ function SideDrawer() {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
 
+  const text = useBreakpointValue({ base: "RC", md: "Rapid Chat" });
   const {
     setSelectedChat,
     user,
@@ -143,7 +145,7 @@ function SideDrawer() {
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Rapid Chat
+          {text}
         </Text>
         <div>
           <Menu>
